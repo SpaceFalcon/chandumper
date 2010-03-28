@@ -1,0 +1,94 @@
+# depslib dependency file v1.0
+1262568915 source:d:\projects\c\chandumper\resource.rc
+	<windows.h>
+	<commctrl.h>
+	<richedit.h>
+	"resource.h"
+
+1262568915 d:\projects\c\chandumper\resource.h
+
+1262578855 source:d:\projects\c\chandumper\dialogs.c
+	<windows.h>
+	<shlobj.h>
+
+1262596799 source:d:\projects\c\chandumper\main.c
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+	"resource.h"
+	"boards.h"
+	"dialogs.h"
+	"fileutil.h"
+
+1262507119 d:\projects\c\chandumper\boards.h
+
+1262510556 d:\projects\c\chandumper\dialogs.h
+
+1262597667 source:d:\projects\c\chandumper\fileutil.c
+	<windows.h>
+	<stdio.h>
+
+1262596772 d:\projects\c\chandumper\fileutil.h
+
+1269119927 source:d:\projects\git\c\chandumper\fileutil.c
+	<windows.h>
+	<stdio.h>
+	<liblist/list.h>
+
+1269205819 source:d:\projects\git\c\chandumper\main.c
+	<windows.h>
+	<commctrl.h>
+	<stdio.h>
+	"resource.h"
+	"boards.h"
+	"dialogs.h"
+	"fileutil.h"
+	"thread.h"
+	<liblist/list.h>
+
+1269206197 d:\projects\git\c\chandumper\resource.h
+
+1263671162 d:\projects\git\c\chandumper\boards.h
+
+1262514156 d:\projects\git\c\chandumper\dialogs.h
+
+1269119996 d:\projects\git\c\chandumper\fileutil.h
+	<liblist/list.h>
+
+1269206197 source:d:\projects\git\c\chandumper\resource.rc
+	<windows.h>
+	<commctrl.h>
+	<richedit.h>
+	"resource.h"
+
+1269277167 source:d:\projects\git\c\chandumper\dialogs.c
+	<windows.h>
+	<shlobj.h>
+
+1268391579 d:\projects\git\c\chandumper\list.h
+	<stdint.h>
+
+1268282333 source:d:\projects\git\c\chandumper\list.c
+	<stdlib.h>
+	<stdint.h>
+	<errno.h>
+	"list.h"
+
+1268502441 c:\users\adam\documents\projects\c\liblist\list.h
+	<stdint.h>
+
+1269120381 source:d:\projects\git\c\chandumper\curl.c
+	<curl/curl.h>
+	<curl/easy.h>
+	<file_get_contents.h>
+
+1269292014 source:d:\projects\git\c\chandumper\thread.c
+	<curl/curl.h>
+	<curl/easy.h>
+	<file_get_contents.h>
+
+1269136449 d:\projects\git\c\chandumper\thread.h
+
+1269205715 source:d:\projects\git\c\chandumper\filever.rc
+	<windows.h>
+

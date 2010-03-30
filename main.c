@@ -12,14 +12,14 @@
 #include <liblist/list.h>
 
 #ifdef DEBUG
-#define VERSION_FULLSTRING "Chandumper Version 0.0.7 - DEBUG BUILD"
+#define VERSION_FULLSTRING "Chandumper Version 0.1.6 - DEBUG BUILD"
 #else
-#define VERSION_FULLSTRING "Chandumper Version 0.0.7"
+#define VERSION_FULLSTRING "Chandumper Version 0.1.6"
 #endif
-#define VERSION_STRING "0.0.7"
+#define VERSION_STRING "0.1.6"
 #define VERSION_MAJOR 0
-#define VERSION_MINOR 0
-#define VERSION_REVISION 5
+#define VERSION_MINOR 1
+#define VERSION_REVISION 6
 
 HINSTANCE hInst;
 HWND FileList;
@@ -111,11 +111,10 @@ DWORD WINAPI DumpThread(void *param)
     char fileLocation[MAX_PATH];
     char postURL[255];
     int counter = 0;
-    float timeleft;
+    float timeleft = 0;
     char buf[125];
     
     char threadno[128];
-    //char imagePath[255];
     char name[255];
     char email[255];
     char subject[255];
@@ -235,6 +234,7 @@ BOOL CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
             RandomPassword = getRandomString(12);
             return TRUE;
         case WM_CLOSE:
+            FreeConsole();
             EndDialog(hwndDlg, 0);
             return TRUE;
 

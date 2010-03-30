@@ -30,12 +30,12 @@
 
 1262596772 d:\projects\c\chandumper\fileutil.h
 
-1269119927 source:d:\projects\git\c\chandumper\fileutil.c
+1269898938 source:d:\projects\git\c\chandumper\fileutil.c
 	<windows.h>
 	<stdio.h>
 	<liblist/list.h>
 
-1269205819 source:d:\projects\git\c\chandumper\main.c
+1269929727 source:d:\projects\git\c\chandumper\main.c
 	<windows.h>
 	<commctrl.h>
 	<stdio.h>
@@ -44,9 +44,10 @@
 	"dialogs.h"
 	"fileutil.h"
 	"thread.h"
+	"randstring.h"
 	<liblist/list.h>
 
-1269206197 d:\projects\git\c\chandumper\resource.h
+1269928779 d:\projects\git\c\chandumper\resource.h
 
 1263671162 d:\projects\git\c\chandumper\boards.h
 
@@ -55,7 +56,7 @@
 1269119996 d:\projects\git\c\chandumper\fileutil.h
 	<liblist/list.h>
 
-1269206197 source:d:\projects\git\c\chandumper\resource.rc
+1269928779 source:d:\projects\git\c\chandumper\resource.rc
 	<windows.h>
 	<commctrl.h>
 	<richedit.h>
@@ -91,4 +92,11 @@
 
 1269205715 source:d:\projects\git\c\chandumper\filever.rc
 	<windows.h>
+
+1269927162 d:\projects\git\c\chandumper\randstring.h
+
+1269927226 source:d:\projects\git\c\chandumper\randstring.c
+	"randstring.h"
+	<stdlib.h>
+	<string.h>
 

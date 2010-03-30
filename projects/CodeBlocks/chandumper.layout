@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="..\..\boards.h" open="0" top="0" tabpos="3">
 		<Cursor position="1382" topLine="15" />
 	</File>
 	<File name="..\..\dialogs.c" open="0" top="0" tabpos="4">
-		<Cursor position="249" topLine="0" />
+		<Cursor position="604" topLine="5" />
 	</File>
 	<File name="..\..\dialogs.h" open="0" top="0" tabpos="2">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\fileutil.c" open="0" top="0" tabpos="3">
-		<Cursor position="243" topLine="32" />
+	<File name="..\..\fileutil.c" open="1" top="1" tabpos="1">
+		<Cursor position="1802" topLine="2" />
 	</File>
 	<File name="..\..\fileutil.h" open="0" top="0" tabpos="0">
 		<Cursor position="264" topLine="0" />

@@ -71,7 +71,7 @@ int get_file_extension(char *filename, char *buffer)
         if(filename[i] == '.') start_substr = i + 1;
     }
     
-    //If no file extension is found, return NULL
+    //If no file extension is found, return -1
     if(start_substr == 0) return -1;
     char *file_ext = (char*)malloc(filename_length - start_substr);
     if(file_ext == NULL) return -2; //Not enough memory.

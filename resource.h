@@ -13,4 +13,10 @@
 #define IDC_UPLOADCOUNT                         1007
 #define IDC_DUMPDIRBROWSE                       1008
 #define IDC_DUMPDIR                             1009
+#define IDC_COUNTER                             1010
 #define IDC_BTNDUMP                             1011
+#define IDC_EMAILTEXT                           1017
+#define IDC_SUBJECTTEXT                         1018
+#define IDC_COMMENTTEXT                         1019
+#define IDC_NAMETEXT                            1020
+#define IDC_SHOWCONSOLE                         1022

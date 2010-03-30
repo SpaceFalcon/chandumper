@@ -8,7 +8,18 @@
 #include "dialogs.h"
 #include "fileutil.h"
 #include "thread.h"
+#include "randstring.h"
 #include <liblist/list.h>
+
+#ifdef DEBUG
+#define VERSION_FULLSTRING "Chandumper Version 0.0.7 - DEBUG BUILD"
+#else
+#define VERSION_FULLSTRING "Chandumper Version 0.0.7"
+#endif
+#define VERSION_STRING "0.0.7"
+#define VERSION_MAJOR 0
+#define VERSION_MINOR 0
+#define VERSION_REVISION 5
 
 HINSTANCE hInst;
 HWND FileList;
@@ -18,8 +29,21 @@ HWND PostLocation;
 HWND DumpDirectory;
 HWND ImageCountLabel;
 HWND UploadCountLabel;
+HWND CounterLabel;
+
+HWND ConsoleWindow = NULL;
+
+HWND NameText;
+HWND EmailText;
+HWND SubjectText;
+HWND CommentText;
+
+HWND ShowConsoleButton;
+
+char *RandomPassword = NULL;
 
 int FileCount = 0;
+int UploadedCount = 0;
 
 BOOL ListViewAddColumn(HWND listview, int colIndex, char *headerText, int colWidth)
 {
@@ -82,35 +106,106 @@ BOOL InitBoardSelect(HWND hwndDlg)
 
 DWORD WINAPI DumpThread(void *param)
 {
-    char threadno[128];
     char itemText[255];
     char pathText[MAX_PATH];
     char fileLocation[MAX_PATH];
     char postURL[255];
+    int counter = 0;
+    float timeleft;
+    char buf[125];
     
-    SendMessage(PostLocation, WM_GETTEXT, 255, (LPARAM)postURL);
-    SendMessage(ThreadNo, WM_GETTEXT, 128, (LPARAM)threadno);
+    char threadno[128];
+    //char imagePath[255];
+    char name[255];
+    char email[255];
+    char subject[255];
+    char message[1024];
     
+    
+    const float TIMEBETWEEN = 60.0f;
     int i = 0;
     
-    LVITEM item;
-    memset(&item, 0, sizeof(item));
-    item.mask = LVIF_TEXT; //get the text
-    item.pszText = itemText;
-    item.cchTextMax = 255;
-    item.iSubItem = 2;     //from the "file" column
-    for(i = 0; i < ListView_GetItemCount(FileList); i++)
+    int numItems = ListView_GetItemCount(FileList);
+    while(1)
     {
-        item.iItem = i;
-        ListView_GetItem(FileList, &item);
-        SendMessage(DumpDirectory, WM_GETTEXT, MAX_PATH, (LPARAM)pathText);
-        snprintf(fileLocation, MAX_PATH, "%s\\%s", pathText, item.pszText);
-        printf("%s\n", fileLocation);
-        printf("Posting data to: %s thread number: %s\n", postURL, threadno);
-        printf("%d\n", chan_threadreply(postURL, threadno, fileLocation, "testdump", "", "", "", "FUCKTHEJEWS"));
-        Sleep(60000);
+        if((int)(timeleft * 100.0f) == 0) //if 60 seconds passed...
+        {
+            //Get the data from the edit controls...
+            SendMessage(PostLocation, WM_GETTEXT, 255, (LPARAM)postURL);
+            SendMessage(ThreadNo, WM_GETTEXT, 128, (LPARAM)threadno);
+            SendMessage(NameText, WM_GETTEXT, 128, (LPARAM)name);
+            SendMessage(EmailText, WM_GETTEXT, 128, (LPARAM)email);
+            SendMessage(SubjectText, WM_GETTEXT, 128, (LPARAM)subject);
+            SendMessage(CommentText, WM_GETTEXT, 128, (LPARAM)message);
+            
+            
+            SendMessage(CounterLabel, WM_SETTEXT, 0, (LPARAM)"Uploading...");
+            counter = 0;
+            
+            LVITEM item;
+            memset(&item, 0, sizeof(item));
+            item.mask = LVIF_TEXT; //get the text
+            item.pszText = itemText;
+            item.cchTextMax = 255;
+            item.iSubItem = 2;     //from the "file" column
+            item.iItem = i;
+            ListView_GetItem(FileList, &item);
+            SendMessage(DumpDirectory, WM_GETTEXT, MAX_PATH, (LPARAM)pathText);
+            snprintf(fileLocation, MAX_PATH, "%s\\%s", pathText, item.pszText);
+            printf("%s\n", fileLocation);
+            printf("Posting data to: %s thread number %s\n", postURL, threadno);
+            if(chan_threadreply(postURL, threadno, fileLocation, name, email, subject, message, RandomPassword) == 0)
+            {
+                UploadedCount++;
+                char upcbuf[12];
+                sprintf(upcbuf, "%d", UploadedCount);
+                SendMessage(UploadCountLabel, WM_SETTEXT, 0, (LPARAM)upcbuf);
+            }
+            
+            ListView_SetCheckState(FileList, i, 1);
+            
+            i++;
+            if(i == numItems) break;
+        }
+        counter++;
+        timeleft = TIMEBETWEEN - ((float)counter / 100.0f);
+        sprintf(buf, "Next Upload In: %2.2f\n Seconds", timeleft);
+        SendMessage(CounterLabel, WM_SETTEXT, 0, (LPARAM)buf);
+        Sleep(10); //sleep for 1/100th of a second
     }
+    SendMessage(CounterLabel, WM_SETTEXT, 0, (LPARAM)"Done");
     return TRUE;
+}
+
+int consoleShown = 0;
+void ToggleConsole()
+{
+    if(ConsoleWindow)
+    {
+        if(consoleShown == 0)
+        {
+            SendMessage(ShowConsoleButton, WM_SETTEXT, 0, (LPARAM)"Hide Console");
+            ShowWindow(ConsoleWindow, SW_SHOW);
+            consoleShown = 1;
+        }
+        else
+        {
+            SendMessage(ShowConsoleButton, WM_SETTEXT, 0, (LPARAM)"Show Console");
+            ShowWindow(ConsoleWindow, SW_HIDE);
+            consoleShown = 0;
+        }
+    }
+}
+
+void InitConsole()
+{
+    ConsoleWindow = GetConsoleWindow();
+    //Disable "x" on console
+    
+    HMENU winmenu = GetSystemMenu(ConsoleWindow, FALSE);
+    DeleteMenu(winmenu, 6, 1024); // no more "x"
+    
+    ShowWindow(ConsoleWindow, SW_HIDE);
 }
 
 BOOL CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -125,6 +220,19 @@ BOOL CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
             DumpDirectory = GetDlgItem(hwndDlg, IDC_DUMPDIR);
             ImageCountLabel = GetDlgItem(hwndDlg, IDC_IMGCOUNT);
             UploadCountLabel = GetDlgItem(hwndDlg, IDC_UPLOADCOUNT);
+            CounterLabel = GetDlgItem(hwndDlg, IDC_COUNTER);
+            
+            NameText = GetDlgItem(hwndDlg, IDC_NAMETEXT);
+            EmailText = GetDlgItem(hwndDlg, IDC_EMAILTEXT);
+            SubjectText = GetDlgItem(hwndDlg, IDC_SUBJECTTEXT);
+            CommentText = GetDlgItem(hwndDlg, IDC_COMMENTTEXT);
+            
+            ShowConsoleButton = GetDlgItem(hwndDlg, IDC_SHOWCONSOLE);
+            
+            InitConsole();
+            
+            SendMessage(hwndDlg, WM_SETTEXT, 0, (LPARAM)VERSION_FULLSTRING);
+            RandomPassword = getRandomString(12);
             return TRUE;
         case WM_CLOSE:
             EndDialog(hwndDlg, 0);
@@ -154,6 +262,13 @@ BOOL CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     }
                 return TRUE;
                 
+                case IDC_SHOWCONSOLE:
+                    if(HIWORD(wParam) == BN_CLICKED)
+                    {
+                        ToggleConsole();
+                    }
+                return TRUE;
+                
                 case IDC_DUMPDIR:
                     if(HIWORD(wParam) == EN_CHANGE)
                     {
@@ -164,7 +279,7 @@ BOOL CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
                             ListView_DeleteAllItems(FileList);
                             FileCount = 0;
                             list *filesList = GetDirectoryFiles(dumpdirPath);
-                            list *temp = filesList;
+                            list *temp = list_reverse(filesList);
                             char buffer[MAX_PATH];
                             while(temp)
                             {

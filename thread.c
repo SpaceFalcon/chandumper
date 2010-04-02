@@ -8,6 +8,7 @@
 #include <curl/curl.h>
 #include <curl/easy.h>
 #include <file_get_contents.h>
+#include "version.h"
 
 /**
   * Function to post a reply to a 4chan thread.
@@ -23,11 +24,11 @@
 int chan_threadreply(char *postlocation, char *threadno, char *imagePath, char *name, char *email, char *sub, char *com, char *pwd)
 {
     CURL *curl;
-    CURLcode res;
+    CURLcode res = CURLE_AGAIN;
     struct curl_httppost *formpost=NULL;
     struct curl_httppost *lastptr=NULL;
     
-    curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "MAX_FILE_SIZE", CURLFORM_COPYCONTENTS, "4194304", CURLFORM_END);
+    curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "MAX_FILE_SIZE", CURLFORM_COPYCONTENTS, "99999999", CURLFORM_END);
     curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "resto", CURLFORM_COPYCONTENTS, threadno, CURLFORM_END);
     curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "name", CURLFORM_COPYCONTENTS, name, CURLFORM_END);
     curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "email", CURLFORM_COPYCONTENTS, email, CURLFORM_END);
@@ -50,7 +51,7 @@ int chan_threadreply(char *postlocation, char *threadno, char *imagePath, char *
     curl = curl_easy_init();
     if(curl)
     {
-        curl_easy_setopt(curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.1.249.1036 Safari/532.5");
+        curl_easy_setopt(curl, CURLOPT_USERAGENT, VERSION_FULLSTRING);
         curl_easy_setopt(curl, CURLOPT_URL, postlocation);
         curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
         res = curl_easy_perform(curl);

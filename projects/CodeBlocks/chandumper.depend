@@ -35,36 +35,39 @@
 	<stdio.h>
 	<liblist/list.h>
 
-1269930662 source:d:\projects\git\c\chandumper\main.c
+1270195435 source:d:\projects\git\c\chandumper\main.c
 	<windows.h>
 	<commctrl.h>
 	<stdio.h>
+	<liblist/list.h>
+	"version.h"
 	"resource.h"
-	"boards.h"
 	"dialogs.h"
 	"fileutil.h"
 	"thread.h"
 	"randstring.h"
-	<liblist/list.h>
+	"init.h"
+	"boards.h"
 
-1269928779 d:\projects\git\c\chandumper\resource.h
+1270161276 d:\projects\git\c\chandumper\resource.h
 
-1263671162 d:\projects\git\c\chandumper\boards.h
+1270164740 d:\projects\git\c\chandumper\boards.h
 
-1262514156 d:\projects\git\c\chandumper\dialogs.h
+1270153476 d:\projects\git\c\chandumper\dialogs.h
 
 1269119996 d:\projects\git\c\chandumper\fileutil.h
 	<liblist/list.h>
 
-1269928779 source:d:\projects\git\c\chandumper\resource.rc
+1270161276 source:d:\projects\git\c\chandumper\resource.rc
 	<windows.h>
 	<commctrl.h>
 	<richedit.h>
 	"resource.h"
 
-1269277167 source:d:\projects\git\c\chandumper\dialogs.c
+1270194970 source:d:\projects\git\c\chandumper\dialogs.c
 	<windows.h>
 	<shlobj.h>
+	<liblist/list.h>
 
 1268391579 d:\projects\git\c\chandumper\list.h
 	<stdint.h>
@@ -83,10 +86,11 @@
 	<curl/easy.h>
 	<file_get_contents.h>
 
-1269292014 source:d:\projects\git\c\chandumper\thread.c
+1269984213 source:d:\projects\git\c\chandumper\thread.c
 	<curl/curl.h>
 	<curl/easy.h>
 	<file_get_contents.h>
+	"version.h"
 
 1269136449 d:\projects\git\c\chandumper\thread.h
 
@@ -99,4 +103,16 @@
 	"randstring.h"
 	<stdlib.h>
 	<string.h>
+
+1270160382 d:\projects\git\c\chandumper\version.h
+
+1270164771 source:d:\projects\git\c\chandumper\init.c
+	<windows.h>
+	<commctrl.h>
+	"resource.h"
+	"boards.h"
+
+1270160872 d:\projects\git\c\chandumper\init.h
+
+1270164732 source:d:\projects\git\c\chandumper\boards.c
 

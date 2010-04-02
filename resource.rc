@@ -11,6 +11,21 @@
 
 
 //
+// Menu resources
+//
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+IDR_MENU1 MENU
+{
+    POPUP "Hidden Defines"
+    {
+        MENUITEM "Show Console", IDM_SHOW_CONSOLE
+        MENUITEM "Go to Website...", IDM_GO_TO_WEBSITE
+    }
+}
+
+
+
+//
 // Dialog resources
 //
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -32,8 +47,8 @@ FONT 8, "Ms Shell Dlg 2"
     RTEXT           "Images in queue:", IDC_IMGINQUEUE, 6, 64, 67, 8, SS_RIGHT
     RTEXT           "Images uploaded:", IDC_IMGUPLOADED, 7, 75, 66, 8, SS_RIGHT
     PUSHBUTTON      "Dump", IDC_BTNDUMP, 283, 204, 55, 14
-    LTEXT           "0", IDC_IMGCOUNT, 77, 64, 5, 8, SS_LEFT
-    LTEXT           "0", IDC_UPLOADCOUNT, 77, 75, 5, 8, SS_LEFT
+    LTEXT           "0", IDC_IMGCOUNT, 77, 64, 16, 8, SS_LEFT
+    LTEXT           "0", IDC_UPLOADCOUNT, 77, 75, 16, 8, SS_LEFT
     RTEXT           "Idle", IDC_COUNTER, 251, 194, 86, 8, SS_RIGHT
     LTEXT           "Name:", IDC_STATIC, 23, 99, 24, 8, SS_LEFT
     EDITTEXT        IDC_NAMETEXT, 48, 97, 195, 14, ES_AUTOHSCROLL
@@ -43,7 +58,7 @@ FONT 8, "Ms Shell Dlg 2"
     LTEXT           "E-mail:", IDC_STATIC, 22, 115, 22, 8, SS_LEFT
     LTEXT           "Subject:", IDC_STATIC, 16, 134, 28, 8, SS_LEFT
     LTEXT           "Comment:", IDC_STATIC, 9, 182, 34, 8, SS_LEFT
-    PUSHBUTTON      "Show Console", IDC_SHOWCONSOLE, 267, 64, 69, 14
+    PUSHBUTTON      "Add File...", IDC_ADDFILE, 213, 39, 50, 14
 }
 
 
